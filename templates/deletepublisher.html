@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+{% block title %}Deleting Publisher {{publisher.name}}{% endblock %}
+{%block operation%}
+    <h3>Deleting Publisher '{{publisher.name}}'</h3>
+    <h4><span class="bg-danger">Are You Sure You Want to Delete This Publisher?</span></h4>
+    <a class="btn btn-primary "href="{{url_for('publishers')}}">Cancel</a>
+{%endblock%}
+{%block content%}
+    <form class="form-horizontal" action="{{url_for('deletePublisher', publisher_id = publisher.id)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input class="btn btn-danger" type="submit" value="Delete Publisher">
+    </form>
+{%endblock%}

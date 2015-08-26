@@ -1,0 +1,53 @@
+{%extends "base.html"%}
+{% block title %}Books by publisher {{publisher.name}}{% endblock %}
+{%block operation%}
+    {% if books|length == 0 %}
+<h4><span class="bg-warning">There Are No Books By '{{publisher.name}}'</span></h4>
+    {%else%}
+        <h4>List of Books By '{{publisher.name}}'</h4>
+    {%endif%}
+{%endblock%}
+{%block content%}
+
+{% if books|length == 0 %}
+    <a class="btn btn-primary" href="{{ url_for('newBook', class_name = 'Publisher', class_id = publisher.id)}} ">Add New Book</a>
+    <a class="btn btn-primary" href= " {{url_for('publishers') }} ">Back To Publishers</a>
+{%else%}
+    <a class="btn btn-primary" href="{{ url_for('newBook', class_name = 'Publisher', class_id = publisher.id)}} ">Add New Book</a>
+        <a class="btn btn-primary" href= " {{url_for('publishers') }} ">Back To Publishers</a>
+    <br>
+    <br>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead class="table-head">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>category</th>
+        </tr>
+    </thead>
+        {% for book in books %}
+        <tr>
+            <td>
+                <div class="dropdown">
+                    <div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ book.title }}<span class="caret"></span></div>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                        <li><a href="{{url_for('reviewBook', book_id = book.id,  class_name = 'Publisher')}}">Details - Add Review</a></li>
+                        <li><a href="{{url_for('editBook', book_id = book.id, class_name = 'Publisher')}}">Edit</a></li>
+                        <li><a href="{{url_for('deleteBook', book_id = book.id, class_name = 'Publisher')}}">Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                {{ book.author.name }}
+            </td>
+            <td>
+                {{ book.category.name }}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        <a class="btn btn-primary" href="{{ url_for('newBook', class_name = 'Publisher', class_id = publisher.id)}} ">Add New Book</a>
+        <a class="btn btn-primary" href= " {{url_for('publishers') }} ">Back To Publishers</a>
+{%endif%}
+{%endblock%}

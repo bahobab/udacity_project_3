@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+{% block title %}Deleting All Books For {{user.name}}{% endblock %}
+{%block operation%}
+<h4>Deleting All the Books For User '{{user.name}}'</h4>
+    <h4><span class="bg-danger">Are You Sure You Want To Delete All Your Books?</span></h4>
+    <a class="btn btn-primary" href="{{url_for('allBooks')}}">Cancel</a>
+{%endblock%}
+{%block content%}
+    <form action="{{url_for('deleteAllMyBooks', user_id = user.id)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input class="btn btn-danger" type="submit" value="Delete All My Books">
+    </form>
+{%endblock%}

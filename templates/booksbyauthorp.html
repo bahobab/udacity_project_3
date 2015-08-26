@@ -1,0 +1,47 @@
+<!--books by category for public view-->
+{%extends "base.html"%}
+{% block title %}Books by author {{author.name}}{% endblock %}
+{%block operation%}
+    {% if books|length == 0 %}
+        <h4><span class="bg-warning">There Are No Books By '{{author.name}}'</span></h4>
+    {%else%}
+        <h4>List of Books By '{{author.name}}'  <span><img class="author-image" src="{{author.imageURL}}"></span></h4>
+    {%endif%}
+{%endblock%}
+{%block content%}
+{% if books|length == 0 %}
+    <a class="btn btn-primary" href= " {{url_for('authors') }} ">Back To Authors</a>
+{%else%}
+        <a class="btn btn-primary" href= " {{url_for('authors') }} ">Back To Authors</a>
+    <br>
+    <br>
+    <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead class="table-head">
+        <tr>
+            <th>Title</th>
+            <th>category</th>
+            <th>Publisher</th>
+        </tr>
+    </thead>
+        {% for book in books %}
+        <tr>
+            <td>
+                <div class="dropdown">
+                <div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ book.title }}<span class="caret"></span></div>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="{{url_for('reviewBook', book_id = book.id, class_name = 'Author')}}">Details - Reviews</a></li>
+  </ul>
+                </div>
+            </td>
+            <td>
+                {{ book.category.name }}
+            </td>
+            <td>
+                {{ book.publisher.name }}
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+        <a class="btn btn-primary" href= " {{url_for('authors') }} ">Back To Authors</a>
+{%endif%}
+{%endblock%}

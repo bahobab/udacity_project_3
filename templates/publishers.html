@@ -1,0 +1,57 @@
+{%extends "base.html"%}
+{%block operation%}
+    {%if publishers|length == 0%}
+<h4><span class="bg-warning">There's No Publisher Available At This Time</span></h4>
+    {%else%}
+        <h3>Publishers</h3>
+    {%endif%}
+{%endblock%}
+
+{%block content%}
+    {%if publishers|length == 0%}
+        <a class="btn btn-primary" href="{{url_for('newPublisher')}}">Add New Publisher</a>
+    {%else%}
+        <a class="btn btn-primary" href="{{url_for('newPublisher')}}">Add New Publisher</a>
+        <br>
+        <br>
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead class="table-head">
+                    <tr>
+                        <th>Publisher Name</th>
+                        <th>Address</th>
+                    </tr>
+    </thead>
+                {% for publisher in publishers %}
+                <tr>
+                    <td>
+                        <div class="dropdown">
+          <div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{publisher.name}}
+            <span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="{{url_for('booksByPublisher', publisher_id = publisher.id)}}">Books</a></li>
+            <li><a href="{{url_for('editPublisher', publisher_id = publisher.id)}}">Edit</a></li>
+            <li><a href="{{url_for('deletePublisher', publisher_id = publisher.id)}}">Delete</a></li>
+        <!--    <li><a href="#">Separated link</a></li>-->
+          </ul>
+        </div>
+        <!--                <a href="{{url_for('booksByPublisher', publisher_id = publisher.id)}}">{{publisher.name}}</a>-->
+                    </td>
+                    <td>
+                        {{publisher.address}}
+                    </td>
+        <!--
+                    <td>
+                        <a href="{{url_for('editPublisher', publisher_id = publisher.id)}}">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{{url_for('deletePublisher', publisher_id = publisher.id)}}">Delete</a>
+                    </td>
+        -->
+                </tr>
+            {% endfor %}
+            </table>
+            <a class="btn btn-primary" href="{{url_for('newPublisher')}}">Add New Publisher</a>
+    {%endif%}
+{%endblock%}

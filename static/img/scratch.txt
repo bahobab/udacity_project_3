@@ -1,0 +1,40 @@
+<aside >
+        <div class="row">
+            <div class="container-fluid">
+            <div class="row">
+            <div class="container-fluid">
+            <form class="" action="{{ url_for('reviewBook', book_id = book.id, class_name = class_name)}}" method="post">
+                <div class="form-group">
+                    <label for = "review" class="control-label">Your review</label>
+                <div>
+                    <textarea id="review" class="form-control" name="review" placeholder="Enter Your Review"></textarea>
+                </div>
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary btn-sm" type="submit" value="Submit">
+                </div>
+
+            </form>
+        </div>
+        </div>
+            <hr>
+        {%if reviews|length == 0%}
+            <span class="review-txt">There's no review for this book. Be the first...</span>
+        {%else%}
+        <div class="row">
+            <div class="container-fluid">
+            <table class="table table-striped table-bordered table-hover">
+                {%for review in reviews%}
+                    <tr>
+                        <td><p class="review-txt">{{review.text}}</p>
+                        <span class="reviewer">>> {{review.user.name}} - {{review.date}}</span>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </table>
+                </div>
+            </div>
+        {%endif%}
+            </div>
+        </div>
+    </aside>

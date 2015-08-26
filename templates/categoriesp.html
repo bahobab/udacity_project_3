@@ -1,0 +1,36 @@
+<!--categories page for public view-->
+{% extends "base.html" %}
+{% block title %}List of all the categories{% endblock %}
+{%block operation%}
+    {%if categories|length == 0%}
+        <h4><p class="bg-warning">There's No Category Available At This Time</p></h4>
+    {%else%}
+        <h3>Book Categories</h3>
+    {%endif%}
+{%endblock%}
+    {% block content %}
+        {%if categories|length != 0%}
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead class="table-head">
+                <tr>
+                    <th>Category Name</th>
+                </tr>
+            </thead>
+                {% for category in categories %}
+                 <tr>
+                    <td>
+                        <div class="dropdown">
+          <div class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{category.name}}
+            <span class="caret"></span>
+          </div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="{{url_for('booksByCategory', category_id = category.id)}}">Books</a></li>
+          </ul>
+        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+    {%endif%}
+{% endblock%}

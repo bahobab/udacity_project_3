@@ -1,0 +1,68 @@
+            body{
+/*                padding-top: 75px;*/
+                margin-bottom: 65px;
+            }
+            #bg{
+                background-image: url('/static/img/jtaime1web.jpg') no-repeat center;
+                background-size: 100% auto;
+            }
+            #msg, #wlk{
+                color:darkred
+            }
+            #credo{
+                color: bisque
+            }
+            .table-head{
+                background-color: black;
+                color: bisque;
+            }
+            .review-txt, .reviewer{
+                font-size: small;
+                color:black
+            }
+            .cover-image{
+                height: 100px;
+                margin-bottom: 10px;
+            }
+
+            .cover-image:hover{
+                width: 200px;
+                height: auto;
+            }
+
+            .author-image:hover{
+                width: 150px;
+                height: auto;
+            }
+
+             #autho-name{
+/*                width: 40%;*/
+            }
+            .author-image{
+                width: 75px;
+                height: auto;
+                margin-left:;
+/*                margin-right: auto;*/
+/*                float: right;*/
+            }
+
+            aside{
+                float: left;
+            }
+            .messages{
+                color:crimson
+            }
+            .topmenu:hover, #deleteallmybooks:hover{
+                background-color: darkred;
+                color: cyan;
+            }
+
+            #noreview{
+                color:aqua;
+            }
+
+
+/*
+                margin-left: auto;
+                margin-right: auto;
+*/

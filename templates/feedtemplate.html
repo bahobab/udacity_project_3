@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <author>By Konan Houphoue</author>
+    <title>List of {{class_name}}</title>
+    {%if class_name == 'BOOKS'%}
+        {%for item in items %}
+        <entry>
+            <title>{{item.title}}</title>
+            <author>{{item.author.name}}</author>
+            <publisher>{{item.publisher.name}}</publisher>
+        </entry>
+        {%endfor%}
+    {%else%}
+        {%for item in items %}
+        <entry>
+            <title>{{item.name}}</title>
+    <!--    <link href="{{item[1]}}"/>-->
+    <!--        <content type="html">{{item[2]}}</content>-->
+        </entry>
+        {%endfor%}
+    {%endif%}
+</feed>

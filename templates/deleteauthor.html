@@ -1,0 +1,13 @@
+{%extends "base.html"%}
+{% block title %}Deleting Author {{author.name}}{% endblock %}
+{%block operation%}
+<h4>Deleting Author '{{author.name}}'</h4>
+    <h4><span class="bg-danger">Are You Sure You Want to Delete This Author?</span></h4>
+    <a class="btn btn-primary" href="{{url_for('authors')}}">Cancel</a>
+{%endblock%}
+{%block content%}
+    <form action="{{url_for('deleteAuthor', author_id = author.id)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input class="btn btn-danger" type="submit" value="Delete Author">
+    </form>
+{%endblock%}

@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{% block title %}Editing Author {{author.name}}{% endblock %}
+{%block operation%}<h4>Editing Author '{{author.name}}'</h4>{%endblock%}
+{%block content%}
+        <form class="form-horizontal" action="{{url_for('editAuthor', author_id = author.id)}}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Author Name</label>
+            <div class="col-sm-10">
+                <input id="name" class="form-control" type="text" name="name" size="30" placeholder="{{author.name}}">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+            <span><b>Active?</b></span>
+            <div class="radio">
+                {%if author.active == 1%}
+                    <label><input type="radio" name="active" value="1" checked>Yes</label>
+                    <label><input type="radio" name="active" value="0">No</label>
+                {%elif author.active == 0%}
+                    <label><input type="radio" name="active" value="1">Yes</label>
+                    <label><input type="radio" name="active" value="0" checked>No</label>
+                {%else%}
+                    <label><input type="radio" name="active" value="1" >Yes</label>
+                    <label><input type="radio" name="active" value="0">No</label>
+                {%endif%}
+            </div>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for="imageURL" class="col-sm-2 control-label">Autho Image</label>
+            <div class="col-sm-10">
+                <input id="imageURL" class="form-control" type="text" name="imageURL" size="30" placeholder="Image URL">
+            </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input class="btn btn-warning" type="submit" value="Edit Author"> <a class="btn btn-primary" href="{{url_for('authors')}}">Cancel</a>
+                </div>
+            </div>
+        </form>
+
+{%endblock%}

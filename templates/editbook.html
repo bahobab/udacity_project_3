@@ -1,0 +1,261 @@
+{%extends "base.html"%}
+{% block title %}Editing {{book.title}}{% endblock %}
+{%block operation%}
+    <h3>Edit Book '{{book.title}}'</h3>
+ {%if class_name == 'Category' %}
+                <a class="btn btn-primary" href="{{url_for('booksByCategory', category_id = book.category_id)}}">Cancel</a>
+            {%elif class_name == 'Author' %}
+                <a class="btn btn-primary" href="{{url_for('booksByAuthor', author_id = book.author_id)}}">Cancel</a>
+            {%elif class_name == 'Publisher'%}
+                <a class="btn btn-primary" href="{{url_for('booksByPublisher', publisher_id = book.publisher_id)}}">Cancel</a>
+            {%elif class_name == 'All'%}
+                <a class="btn btn-primary" href="{{url_for('allBooks', class_name = 'All')}}">Cancel</a>
+            {%endif%}
+{%endblock%}
+{%block content%}
+        <form class="form-horizontal" action="{{ url_for('editBook', book_id = book.id, class_name = class_name)}}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for = "title" class="col-sm-2 control-label">Book Title</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="title" type="text" size="30" name="title" placeholder="{{book.title}}">
+                </div>
+            </div>
+            <div class="form-group">
+            <label for = "isbn" class="col-sm-2 control-label">ISBN</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="isbn" type="text" size="30" name="isbn" placeholder="{{book.isbn}}">
+                </div>
+            </div>
+            <div class="form-group">
+            <label for = "datePub" class="col-sm-2 control-label">Year Published</label>
+            <div class="col-sm-10">
+                <input class="form-control"  id="datepub" type="text" size="30" name="datePub" placeholder="{{book.datepub}}">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "language" class="col-sm-2 control-label">Language</label>
+            <div class="col-sm-10">
+                <select name="language" id="language" class="form-control">
+                    {%if book.language == "na"%}
+                        <option value="na" selected></option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="French">German</option>
+                        <option value="Spanish">Spanish</option>
+                    {%elif book.language == "Arabic"%}
+                        <option value="na"></option>
+                        <option value="Arabic" selected>Arabic</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="French">German</option>
+                        <option value="Spanish">Spanish</option>
+                    {%elif book.language == "English"%}
+                        <option value="na"></option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English" selected>English</option>
+                        <option value="French">French</option>
+                        <option value="French">German</option>
+                        <option value="Spanish">Spanish</option>
+                    {%elif book.language == "French"%}
+                        <option value="na"></option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English">English</option>
+                        <option value="French" selected>French</option>
+                        <option value="French">German</option>
+                        <option value="Spanish">Spanish</option>
+                    {%elif book.language == "German"%}
+                        <option value="na"></option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English">English</option>
+                        <option value="English">French</option>
+                        <option value="French" selected>German</option>
+                        <option value="Spanish">Spanish</option>
+                    {%elif book.language == "Spanish"%}
+                        <option value="na"></option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                    <option value="French">German</option>
+                        <option value="Spanish" selected>Spanish</option>
+                {%endif%}
+<!--                    <option value="na"></option>-->
+
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "edition" class="col-sm-2 control-label">Edition</label>
+            <div class="col-sm-10">
+                <select name="edition" id="edition" class="form-control">
+                    {%if book.edition == "na"%}
+                        <option value="na" selected></option>
+                        <option value="1st">1st Edition</option>
+                        <option value="2nd">2nd Edition</option>
+                        <option value="3rd">3rd Edition</option>
+                        <option value="4th">4th Edition</option>
+                        <option value="5th">5th Edition</option>
+                    {%elif book.edition == "1st"%}
+                        <option value="na"></option>
+                        <option value="1st" selected>1st Edition</option>
+                        <option value="2nd">2nd Edition</option>
+                        <option value="3rd">3rd Edition</option>
+                        <option value="4th">4th Edition</option>
+                        <option value="5th">5th Edition</option>
+                    {%elif book.edition == "2nd"%}
+                        <option value="na"></option>
+                        <option value="1st">1st Edition</option>
+                        <option value="2nd" selected>2nd Edition</option>
+                        <option value="3rd">3rd Edition</option>
+                        <option value="4th">4th Edition</option>
+                        <option value="5th">5th Edition</option>
+                    {%elif book.edition == "3rd"%}
+                        <option value="na"></option>
+                        <option value="1st">1st Edition</option>
+                        <option value="2nd">2nd Edition</option>
+                        <option value="3rd" selected>3rd Edition</option>
+                        <option value="4th">4th Edition</option>
+                        <option value="5th">5th Edition</option>
+                    {%elif book.edition == "4th"%}
+                        <option value="na"></option>
+                        <option value="1st">1st Edition</option>
+                        <option value="2nd">2nd Edition</option>
+                        <option value="3rd">3rd Edition</option>
+                        <option value="4th" selected>4th Edition</option>
+                        <option value="5th">5th Edition</option>
+                    {%elif book.edition == "5th"%}
+                        <option value="na"></option>
+                        <option value="1st">1st Edition</option>
+                        <option value="2nd">2nd Edition</option>
+                        <option value="3rd">3rd Edition</option>
+                        <option value="4th">4th Edition</option>
+                        <option value="5th" selected>5th Edition</option>
+                    {%endif%}
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "condition" class="col-sm-2 control-label">Condition</label>
+            <div class="col-sm-10">
+                <select name="condition" id="condition" class="form-control">
+                    {%if book.condition == "na"%}
+                        <option value="na" selected></option>
+                        <option value="poor">Poor</option>
+                        <option value="acceptable">Acceptable</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    {%elif book.condition == "poor"%}
+                        <option value="na"></option>
+                        <option value="poor" selected>Poor</option>
+                        <option value="acceptable">Acceptable</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    {%elif book.condition == "acceptable"%}
+                        <option value="na"></option>
+                        <option value="poor">Poor</option>
+                        <option value="acceptable" selected>Acceptable</option>
+                        <option value="good">Good</option>
+                        <option value="excellent">Excellent</option>
+                    {%elif book.condition == "good"%}
+                        <option value="na"></option>
+                        <option value="poor">Poor</option>
+                        <option value="acceptable">Acceptable</option>
+                        <option value="good" selected>Good</option>
+                        <option value="excellent">Excellent</option>
+                    {%elif book.condition == "excellent"%}
+                        <option value="na"></option>
+                        <option value="poor">Poor</option>
+                        <option value="acceptable">Acceptable</option>
+                        <option value="good">Good</option>
+                        <option value="excellent" selected>Excellent</option>
+                    {%endif%}
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "binding" class="col-sm-2 control-label">Binding</label>
+            <div class="col-sm-10">
+                <select name="binding" id="binding" class="form-control">
+                    {%if book.binding == "paperback"%}
+                        <option value="paperback" selected>Paperback</option>
+                        <option value="hardback">Hardback</option>
+                        <option value="hardback">Video</option>
+                    {%elif book.binding == "hardback"%}
+                        <option value="paperback">Paperback</option>
+                        <option value="hardback" selected>Hardback</option>
+                        <option value="hardback">Video</option>
+                    {%elif book.binding == "video"%}
+                        <option value="paperback">Paperback</option>
+                        <option value="hardback">Hardback</option>
+                        <option value="hardback" selected>Video</option>
+                    {%endif%}
+                </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                 <span><b>Available?</b></span>
+                {%if book.available == 1%}
+                    <div class="radio">
+                        <label><input type="radio" checked name="available" value="1"/>Yes</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="available" value="0"/>No</label>
+                    </div>
+                {%elif book.available == 0%}
+                    <div class="radio">
+                        <label><input type="radio" name="available" value="1"/>Yes</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" checked name="available" value="0"/>No</label>
+                    </div>
+                {%endif%}
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "category" class="col-sm-2 control-label">Category</label>
+            <div class="col-sm-10">
+                <input id="category" class="form-control typeahead" data-provide="typeahead" data-source ="{{categoryNames}}" type="text" size="30" name="category" placeholder="{{book.category.name}}" autocomplete="off">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "author" class="col-sm-2 control-label">Author</label>
+            <div class="col-sm-10">
+                <input id="author" class="form-control typeahead" data-provide="typeahead" data-source ="{{authorNames}}" type="text" size="30" name="author" placeholder="{{book.author.name}}" autocomplete="off">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "publisher" class="col-sm-2 control-label">Publisher</label>
+            <div class="col-sm-10">
+                <input id="publisher" class="form-control typeahead" data-provide="typeahead" data-source ="{{publisherNames}}"  type="text" size="30" name="publisher" placeholder="{{book.publisher.name}}" autocomplete="off">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "imageURL" class="col-sm-2 control-label">Cover Image</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="imageURL" type="file" size="50" name="imageURL" placeholder="{{book.imageURL}}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for = "summary" class="col-sm-2 control-label">Book Summary</label>
+                <div class="col-sm-10">
+                    <textarea id="summary" class="form-control" name="summary" placeholder="{{book.summary}}"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+            <input class="btn btn-warning" type="submit" value="Edit Book" >
+            {%if class_name == 'Category' %}
+                <a class="btn btn-primary" href="{{url_for('booksByCategory', category_id = book.category_id)}}">Cancel</a>
+            {%elif class_name == 'Author' %}
+                <a class="btn btn-primary" href="{{url_for('booksByAuthor', author_id = book.author_id)}}">Cancel</a>
+            {%elif class_name == 'Publisher'%}
+                <a class="btn btn-primary" href="{{url_for('booksByPublisher', publisher_id = book.publisher_id)}}">Cancel</a>
+            {%elif class_name == 'All'%}
+                <a class="btn btn-primary" href="{{url_for('allBooks')}}">Cancel</a>
+            {%endif%}
+            </div>
+            </div>
+        </form>
+{%endblock%}

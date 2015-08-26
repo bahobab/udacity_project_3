@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{% block title %}Deleting Category {{category.name}}{% endblock %}
+{%block operation%}
+<div class="">
+    <h4>Deleting Book Category '{{category.name}}'</h4>
+    <h4><span class="bg-danger">Do You Really Want To Delete This Category?</span></h4>
+    <a class="btn btn-primary" href="{{ url_for('categories') }}">Cancel</a>
+</div>
+{%endblock%}
+{%block content%}
+<form action="{{ url_for('deleteCategory', category_id = category.id) }}"  method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    <div class="form-group">
+        <div class="">
+            <input class="btn btn-danger" type="submit" value="Delete Category">
+        </div>
+    </div>
+</form>
+{%endblock%}

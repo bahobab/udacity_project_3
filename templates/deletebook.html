@@ -1,0 +1,23 @@
+{%extends "base.html"%}
+{% block title %}Deleting Book {{book.title}}{% endblock %}
+{%block operation%}
+    <h3>Delete Book '{{book.title}}'</h3>
+    <h4><span class="bg-danger">Are you sure you want to delete this book?</span></h4>
+    {%if class_name == 'Category' %}
+                <a class="btn btn-primary" href="{{url_for('booksByCategory', category_id = book.category_id)}}">Cancel</a>
+            {%elif class_name == 'Author' %}
+                <a class="btn btn-primary" href="{{url_for('booksByAuthor', author_id = book.author_id)}}">Cancel</a>
+            {%elif class_name == 'Publisher'%}
+                <a class="btn btn-primary" href="{{url_for('booksByPublisher', publisher_id = book.publisher_id)}}">Cancel</a>
+            {%elif class_name == 'All'%}
+                <a class="btn btn-primary bt-sm" href="{{url_for('allBooks')}}">Cancel</a>
+            {%endif%}
+{%endblock%}
+{%block content%}
+<form action="{{url_for('deleteBook', book_id = book.id, class_name = class_name)}}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    <div class="">
+    <input class="btn btn-danger" type="submit" value="Delete Book">
+    </div>
+</form>
+{%endblock%}

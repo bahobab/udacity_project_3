@@ -1,0 +1,30 @@
+{%extends "base.html"%}
+{% block title %}Editing Publisher {{publisher.name}}{% endblock %}
+{%block operation%}
+<div class="col-offset-2">
+    <h4>Editing Publisher '{{publisher.name}}'</h4>
+</div>
+{%endblock%}
+{%block content%}
+    <form class="form-horizontal" action="{{url_for('editPublisher', publisher_id = publisher.id)}}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="name" size="30" placeholder="{{publisher.name}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="address" size="250" placeholder="{{publisher.address}}">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-warning" type="submit" value="Edit Publisher">
+                <a class="btn btn-primary"href="{{url_for('publishers')}}">Cancel</a>
+            </div>
+        </div>
+    </form>
+{%endblock%}

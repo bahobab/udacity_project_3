@@ -1,0 +1,48 @@
+{
+  "Publishers": [
+    {
+      "name": "Watson Guptil",
+      "address": "111 N Main"
+    },
+    {
+      "name": "Perigree",
+      "address": "222 W Lake"
+    },
+    {
+      "name": "North Light",
+      "address": "3333 E Washington"
+    },
+    {
+      "name": "Dover",
+      "address": "4444 S State"
+    },
+    {
+      "name": "Digest",
+      "address": "555 Time Square"
+    },
+    {
+      "name": "Groupe Eyrolles",
+      "address": "www.editions-eyrolles.com"
+    },
+    {
+      "name": "Lark Books",
+      "address": "www.sterlingpub.com"
+    },
+    {
+      "name": "Design Studio Press",
+      "address": "www.designstudiopress.com"
+    },
+    {
+      "name": "Focal Press",
+      "address": "www.elsevier.com"
+    },
+    {
+      "name": "Owen Publishing",
+      "address": null
+    },
+    {
+      "name": "My Pub Co",
+      "address": null
+    }
+  ]
+}

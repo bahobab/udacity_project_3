@@ -1,0 +1,156 @@
+<!--new book page-->
+{%extends "base.html"%}
+{% block title %}Adding New Book{% endblock %}
+{%block operation%}
+    <h4>Adding A New Book In '{{class_object.name}}' {{class_name}}</h4>
+ {%if class_name == 'Category' %}
+                <a class="btn btn-primary" href="{{url_for('booksByCategory', category_id = class_object.id)}}">Cancel</a>
+            {%elif class_name == 'Author' %}
+                <a class="btn btn-primary" href="{{url_for('booksByAuthor', author_id = class_object.id)}}">Cancel</a>
+            {%elif class_name == 'Publisher'%}
+                <a class="btn btn-primary" href="{{url_for('booksByPublisher', publisher_id = class_object.id)}}">Cancel</a>
+            {%endif%}
+{%endblock%}
+{%block content%}
+        <form class="form-horizontal" action="{{ url_for('newBook', class_name = class_name, class_id = class_object.id)}}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            <div class="form-group">
+                <label for = "title" class="col-sm-2 control-label">Book Title</label>
+                <div class="col-sm-10">
+                    <input class="form-control" id="title" type="text" size="30" name="title" placeholder="Book Title" required>
+                </div>
+            </div>
+            <div class="form-group">
+            <label for = "isbn" class="col-sm-2 control-label">ISBN</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="isbn" type="text" size="30" name="isbn" placeholder="ISBN">
+                </div>
+            </div>
+            <div class="form-group">
+            <label for = "datePub" class="col-sm-2 control-label">Year Published</label>
+            <div class="col-sm-10">
+                <input class="form-control date-time"  id="datepub" type="date" size="30" name="datePub" placeholder="Year Published">
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "language" class="col-sm-2 control-label">Language</label>
+            <div class="col-sm-10">
+                <select name="language" id="language" class="form-control">
+                <option value="na"></option>
+                <option value="Arabic">Arabic</option>
+                <option value="English">English</option>
+                <option value="French">French</option>
+                    <option value="French">German</option>
+                <option value="Spanish">Spanish</option>
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "edition" class="col-sm-2 control-label">Edition</label>
+            <div class="col-sm-10">
+                <select name="edition" id="edition" class="form-control">
+                <option value="na"></option>
+                <option value="1st">1st Edition</option>
+                <option value="2nd">2nd Edition</option>
+                <option value="3rd">3rd Edition</option>
+                <option value="4th">4th Edition</option>
+                <option value="5th">5th Edition</option>
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "condition" class="col-sm-2 control-label">Condition</label>
+            <div class="col-sm-10">
+                <select name="condition" id="condition" class="form-control">
+                <option value="na"></option>
+                <option value="poor">Poor</option>
+                <option value="acceptable">Acceptable</option>
+                <option value="good">Good</option>
+                <option value="excellent">Excellent</option>
+            </select>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "binding" class="col-sm-2 control-label">Binding</label>
+            <div class="col-sm-10">
+                <select name="binding" id="binding" class="form-control">
+                <option value="paperback" selected>Paperback</option>
+                <option value="hardback">Hardback</option>
+                <option value="hardback">Video</option>
+            </select>
+            </div>
+            </div>
+<!--    </div>-->
+<!--    <div class="col-sm-6">-->
+<!--        <legend>Rightside</legend>-->
+            <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                 <span><b>Available?</b></span>
+            <div class="radio">
+            <label><input type="radio" name="available" value="1"/>Yes</label>
+                </div>
+            <div class="radio">
+            <label><input type="radio" name="available" value="0"/>No</label>
+            </div>
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "category" class="col-sm-2 control-label">Category</label>
+            <div class="col-sm-10">
+                {%if class_name == 'Category'%}
+                    <input id="category" class="form-control typeahead" data-provide="typeahead" data-source="{{categoryNames}}" type="text" size="30" name="category" value="{{class_object.name}}" required autocomplete="off">
+                {%else%}
+                <input id="category" class="form-control typeahead" data-provide="typeahead" data-source="{{categoryNames}}" type="text" size="30" name="category" placeholder="Category Name" data-provide="typeahead" required autocomplete="off">
+                {%endif%}
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "author" class="col-sm-2 control-label">Author</label>
+            <div class="col-sm-10">
+                {%if class_name == 'Author'%}
+                    <input id="author" class="form-control typeahead" data-provide="typeahead" data-source="{{authorNames}}" type="text" size="30" name="author" value="{{class_object.name}}" required autocomplete="off">
+                {%else%}
+                    <input id="author" class="form-control typeahead" data-provide="typeahead" data-source ="{{authorNames}}" type="text" size="30" name="author" placeholder="Author Name" required autocomplete="off">
+                {%endif%}
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "publisher" class="col-sm-2 control-label">Publisher</label>
+            <div class="col-sm-10">
+<!--                <span class="input-group-addon">*</span>-->
+                {%if class_name == 'Publisher'%}
+                    <input id="publisher" class="form-control typeahead" data-provide="typeahead" data-source ="{{publisherNames}}"  type="text" size="30" name="publisher" value="{{class_object.name}}" required autocomplete="off">
+                {%else%}
+                    <input id="publisher" class="form-control typeahead" data-provide="typeahead" data-source ="{{publisherNames}}"  type="text" size="30" name="publisher" placeholder="Book Publisher" required autocomplete="off">
+                {%endif%}
+            </div>
+            </div>
+            <div class="form-group">
+            <label for = "imageURL" class="col-sm-2 control-label">Cover Image</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="imageURL" type="file" size="50" name="imageURL" value="faces.jpg">
+                </div>
+                <p class="help-block col-sm-offset-2 col-sm-10">Select Book Image From Images Directory</p>
+            </div>
+            <div class="form-group">
+                <label for = "summary" class="col-sm-2 control-label">Book Summary</label>
+                <div class="col-sm-10">
+                    <textarea id="summary" class="form-control" name="summary" placeholder="Enter Book Summary"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+            <input class="btn btn-success" type="submit" value="Add New Book" >
+            {%if class_name == 'Category' %}
+                <a class="btn btn-primary" href="{{url_for('booksByCategory', category_id = class_object.id)}}">Cancel</a>
+            {%elif class_name == 'Author' %}
+                <a class="btn btn-primary" href="{{url_for('booksByAuthor', author_id = class_object.id)}}">Cancel</a>
+            {%elif class_name == 'Publisher'%}
+                <a class="btn btn-primary" href="{{url_for('booksByPublisher', publisher_id = class_object.id)}}">Cancel</a>
+            {%endif%}
+            </div>
+            </div>
+
+<!--        </div>-->
+        </form>
+{%endblock%}
